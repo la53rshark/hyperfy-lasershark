@@ -1,8 +1,8 @@
 {
-  "id": "world-xxxx",
+  "id": "world-4",
   "type": "environment",
-  "title": "World",
-  "description": "A brand new world in the Hyperfy metaverse.",
-  "image": "image.png",
-  "slug": "world"
+  "title": "lasershark's lab",
+  "description": "A place for lasershark to experiment in hyperfy.",
+  "image": "thumb.jpg",
+  "slug": "lasershark"
 }
