@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { Dialog } from '../engine/Dialog'
+import { DEG2RAD } from 'hyperfy'
 
 /**
  *
@@ -17,11 +18,11 @@ const schema = {
   origin: 'intro',
   views: {
     intro: {
-      text: "Oh... hey...\nI'm kind of a bit sad right now...",
+      text: "hello i am dalle tubby",
       goto: 'questAsk',
     },
     questAsk: {
-      text: 'I seem to have misplaced my teddy bear somewhere. I swear its around here somewhere. Will you help me find it?',
+      text: 'i have lost my snoggle. pls help.',
       origin: 'questAsk',
       options: [
         { text: "Sure, I'll find it!", goto: 'questAccept' },
@@ -32,11 +33,11 @@ const schema = {
       text: '*Sniff* *Sniff*\n\nOkay... no worries...',
     },
     questAccept: {
-      text: 'Oh gosh really? Thank you so much! Please return soon!',
+      text: 'WOW THANK YOU!!',
       origin: 'questActive',
     },
     questActive: {
-      text: 'Welcome back. Any luck finding my teddy bear?',
+      text: 'Did you find my snoggle?',
       options: [
         { text: 'Yep, here you go!', require: 'teddy', goto: 'questComplete' },
         { text: 'Sorry, not yet', goto: 'questNotYet' },
@@ -56,26 +57,33 @@ const schema = {
   },
 }
 
-export function Erika({ position, teddyPosition }) {
+export function Erika({ position, solvePosition }) {
   const [view, setView] = useState(false)
   const [hasTeddy, setHasTeddy] = useState(false)
   const [givenTeddy, setGivenTeddy] = useState(false)
 
   // Erika is sad until she gets her teddy.
-  let animation = givenTeddy ? 'Happy' : 'Sad'
+  let animation = givenTeddy ? 'idle' : 'float'
   // If you're talking to her:-
   if (view) {
     if (view === 'questComplete') {
       // She's excited when you give her the teddy!
-      animation = 'Excited'
+      animation = 'float'
     } else {
       // Otherwise she just talks to you
-      animation = 'Talk'
+      animation = 'idle'
     }
   }
 
   return (
     <>
+      <model 
+        src="npc/dalletub.glb"
+        animate={animation}
+        position={[136,15,21]}
+        rotation={[0, -70 * DEG2RAD , 0, 'YXZ']}
+        scale={[100,100,100]}
+      />
       <Dialog
         position={position}
         schema={schema}
@@ -92,12 +100,18 @@ export function Erika({ position, teddyPosition }) {
           // the conversation.
         }}
       >
-        <model src="npc/erika.glb" animate={animation} />
+        <model 
+          src="npc/megaphone.glb"
+          position={[10,-1,50.1]}
+          rotation={[15 * DEG2RAD , -75 * DEG2RAD , 0, 'YXZ']}
+          scale={[1,1,1]}
+        />
       </Dialog>
       {!hasTeddy && (
         <model
-          src="object/teddy.glb"
-          position={teddyPosition}
+        scale={[1,1,1]}
+        src="object/snoggle.glb"
+          position={solvePosition}
           onClick={() => setHasTeddy(true)}
         />
       )}

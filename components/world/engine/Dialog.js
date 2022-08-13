@@ -138,10 +138,9 @@ function Popup({ schema, position, onView, onEvent, onRequire, onEnd }) {
   }
 
   return (
-    <billboard axis="y">
       <billboard
         axis="y"
-        position={position}
+        position={[8,-0.5,48.9]}
         onClick={e => {
           if (e.defaultPrevented) return
           if (visibleOptions.length) return
@@ -190,6 +189,5 @@ function Popup({ schema, position, onView, onEvent, onRequire, onEnd }) {
           </group>
         ))}
       </billboard>
-    </billboard>
   )
 }
